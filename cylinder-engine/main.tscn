@@ -1,0 +1,165 @@
+[gd_scene format=3 uid="uid://doqlokipiq181"]
+
+[ext_resource type="Texture2D" uid="uid://dyo7g8yo47lx8" path="res://Frame.png" id="1_1bvp3"]
+[ext_resource type="Script" uid="uid://cl40cm0mrrwq5" path="res://main.gd" id="1_lquwl"]
+[ext_resource type="Texture2D" uid="uid://cn0k2ygcabs15" path="res://Crank Weight.png" id="2_lquwl"]
+[ext_resource type="Texture2D" uid="uid://boamm4qma8alf" path="res://Cylinder Head.png" id="3_7mycd"]
+[ext_resource type="Texture2D" uid="uid://7jv7sqes2ixq" path="res://Crank Arm.png" id="4_272bh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_12j5o"]
+height = 268.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_61ot5"]
+size = Vector2(148, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12j5o"]
+size = Vector2(148, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(33, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_47lvx"]
+size = Vector2(20, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1n7pi"]
+size = Vector2(265, 20)
+
+[sub_resource type="SphereMesh" id="SphereMesh_12j5o"]
+
+[node name="Main" type="Node2D" unique_id=51360221]
+script = ExtResource("1_lquwl")
+
+[node name="Frame Sprite" type="Sprite2D" parent="." unique_id=258609525]
+position = Vector2(468, 323)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_1bvp3")
+
+[node name="Head to Arm" type="PinJoint2D" parent="." unique_id=1414825164]
+position = Vector2(524, 170)
+node_a = NodePath("../Head RB")
+node_b = NodePath("../Arm RB")
+
+[node name="Arm to Weight" type="PinJoint2D" parent="." unique_id=1747430171]
+position = Vector2(524, 417)
+node_a = NodePath("../Arm RB")
+node_b = NodePath("../Weight RB")
+
+[node name="Weight To Static" type="PinJoint2D" parent="." unique_id=1537556113]
+position = Vector2(524, 489)
+node_a = NodePath("../Weight RB")
+node_b = NodePath("../Weight Static")
+
+[node name="Head to Frame" type="GrooveJoint2D" parent="." unique_id=1201607708]
+node_a = NodePath("../Frame Head Collider")
+node_b = NodePath("../Head RB")
+length = 500.0
+
+[node name="Head RB" type="RigidBody2D" parent="." unique_id=1849685596]
+mass = 5.0
+lock_rotation = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Head RB" unique_id=1540184718]
+polygon = PackedVector2Array(406, 145, 640, 145, 639, 245, 605, 223, 553, 207, 534, 205, 513, 205, 481, 208, 432, 228, 407, 245)
+
+[node name="CylinderHead" type="Sprite2D" parent="Head RB" unique_id=1301139744]
+position = Vector2(523, 195)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_7mycd")
+
+[node name="Area2D" type="Area2D" parent="Head RB" unique_id=1348913088]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Head RB/Area2D" unique_id=1306987641]
+polygon = PackedVector2Array(406, 145, 640, 145, 639, 245, 605, 223, 553, 207, 534, 205, 513, 205, 481, 208, 432, 228, 407, 245)
+
+[node name="Weight RB" type="RigidBody2D" parent="." unique_id=173722737]
+mass = 20.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Weight RB" unique_id=1104998636]
+position = Vector2(83.77698, 57.215393)
+scale = Vector2(0.83996755, 0.8399681)
+polygon = PackedVector2Array(506, 404, 542, 404, 550, 437, 570, 473, 603, 501, 585, 536, 556, 556, 506, 561, 467, 540, 444, 502, 478, 474, 499, 439)
+
+[node name="CrankWeight" type="Sprite2D" parent="Weight RB" unique_id=1006614390]
+position = Vector2(524.00006, 409)
+scale = Vector2(0.21732284, 0.21732286)
+texture = ExtResource("2_lquwl")
+offset = Vector2(-0.0002984033, 248.47824)
+
+[node name="Area2D" type="Area2D" parent="Weight RB" unique_id=1024441631]
+position = Vector2(0, -20)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Weight RB/Area2D" unique_id=46129748]
+position = Vector2(71.27304, 65.690704)
+scale = Vector2(0.86385286, 0.86385345)
+polygon = PackedVector2Array(506, 404, 542, 404, 550, 437, 570, 473, 603, 501, 585, 536, 556, 556, 506, 561, 467, 540, 444, 502, 478, 474, 499, 439)
+
+[node name="Arm RB" type="RigidBody2D" parent="." unique_id=2098402692]
+mass = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm RB" unique_id=1882905703]
+position = Vector2(524, 293)
+shape = SubResource("CapsuleShape2D_12j5o")
+
+[node name="CrankArm" type="Sprite2D" parent="Arm RB" unique_id=950620504]
+position = Vector2(524, 293)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_272bh")
+
+[node name="Area2D" type="Area2D" parent="Arm RB" unique_id=1838675554]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm RB/Area2D" unique_id=1618122342]
+position = Vector2(524, 293)
+shape = SubResource("CapsuleShape2D_12j5o")
+
+[node name="Air Fuel Mixture Area" type="Area2D" parent="." unique_id=1034091008]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Air Fuel Mixture Area" unique_id=961528077]
+position = Vector2(334, 209)
+shape = SubResource("RectangleShape2D_61ot5")
+
+[node name="Exhaust Valve Area" type="Area2D" parent="." unique_id=1071091730]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exhaust Valve Area" unique_id=607904345]
+position = Vector2(334, 161.5)
+shape = SubResource("RectangleShape2D_12j5o")
+
+[node name="Transfer Port Area" type="Area2D" parent="." unique_id=413455993]
+position = Vector2(341, 41)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transfer Port Area" unique_id=2132015043]
+position = Vector2(312.5, 148.5)
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Frame Collider" type="StaticBody2D" parent="." unique_id=1925869696]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame Collider" unique_id=1341253807]
+position = Vector2(395, 245)
+shape = SubResource("RectangleShape2D_47lvx")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Frame Collider" unique_id=1427470655]
+position = Vector2(652, 245)
+shape = SubResource("RectangleShape2D_47lvx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Frame Collider" unique_id=1504335605]
+polygon = PackedVector2Array(405, 445, 405, 476, 408, 514, 419, 541, 439, 568, 468, 590, 505, 602, 523, 604, 548, 601, 576, 593, 606, 570, 627, 544, 639, 513, 642, 484, 642, 445, 662, 445, 662, 625, 385, 625, 385, 445)
+
+[node name="Frame Head Collider" type="StaticBody2D" parent="." unique_id=1106236623]
+position = Vector2(523, 55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame Head Collider" unique_id=1573853921]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_1n7pi")
+
+[node name="Weight Static" type="StaticBody2D" parent="." unique_id=1507497312]
+position = Vector2(524, 489)
+
+[node name="Spark Visual" type="MeshInstance2D" parent="." unique_id=708570418]
+modulate = Color(1, 0.9254902, 0.2901961, 1)
+position = Vector2(523, 88)
+scale = Vector2(16.018091, 16.018091)
+mesh = SubResource("SphereMesh_12j5o")
+
+[node name="Spark Egnition Timer" type="Timer" parent="." unique_id=1556528062]
+autostart = true
+
+[connection signal="timeout" from="Spark Egnition Timer" to="." method="_on_spark_egnition_timer_timeout"]
